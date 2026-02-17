@@ -1,36 +1,43 @@
-function previewImage(event)
+const SUPABASE_URL = "https://eijgfrhkmcedwophfzpu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_JuQ6JCdE7TltkwzbbxLXKQ_0UbeCTbw";
+
+async function submitReport()
 {
-let image = document.getElementById("preview");
-image.src = URL.createObjectURL(event.target.files[0]);
+let location = document.getElementById("location").value;
+
+if(location === "")
+{
+alert("Please enter location");
+return;
 }
 
-function getLocation()
+let response = await fetch(SUPABASE_URL + "/rest/v1/requests", {
+
+method: "POST",
+
+headers: {
+"Content-Type": "application/json",
+"apikey": SUPABASE_KEY,
+"Authorization": "Bearer " + SUPABASE_KEY,
+"Prefer": "return=minimal"
+},
+
+body: JSON.stringify({
+location: location,
+status: "pending"
+})
+
+});
+
+if(response.ok)
 {
-if(navigator.geolocation)
-{
-navigator.geolocation.getCurrentPosition(showPosition);
-}
-}
-
-function showPosition(position)
-{
-let lat = position.coords.latitude;
-let lon = position.coords.longitude;
-
-document.getElementById("location").value =
-lat + ", " + lon;
-
-document.getElementById("map").innerHTML =
-'<iframe width="100%" height="200" src="https://maps.google.com/maps?q='
-+ lat + ',' + lon +
-'&z=15&output=embed"></iframe>';
-}
-
-function submitReport()
-{
-localStorage.setItem("rescueStatus",
-"Request submitted. Rescuer coming.");
-
 document.getElementById("status").innerHTML =
-"Request submitted successfully";
+"✅ Rescue request submitted successfully!";
+}
+else
+{
+document.getElementById("status").innerHTML =
+"❌ Error submitting request";
+}
+
 }
