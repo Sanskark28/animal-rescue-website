@@ -1,13 +1,39 @@
 const SUPABASE_URL = "https://eijgfrhkmcedwophfzpu.supabase.co";
 const SUPABASE_KEY = "sb_publishable_JuQ6JCdE7TltkwzbbxLXKQ_0UbeCTbw";
 
+function getLocation()
+{
+if(navigator.geolocation)
+{
+navigator.geolocation.getCurrentPosition(showPosition, showError);
+}
+else
+{
+alert("Geolocation not supported");
+}
+}
+
+function showPosition(position)
+{
+let lat = position.coords.latitude;
+let lon = position.coords.longitude;
+
+document.getElementById("location").value =
+lat + ", " + lon;
+}
+
+function showError(error)
+{
+alert("Please allow location access");
+}
+
 async function submitReport()
 {
 let location = document.getElementById("location").value;
 
 if(location === "")
 {
-alert("Please enter location");
+alert("Please enter or get location");
 return;
 }
 
@@ -32,12 +58,12 @@ status: "pending"
 if(response.ok)
 {
 document.getElementById("status").innerHTML =
-"✅ Rescue request submitted successfully!";
+"✅ Rescue request submitted!";
 }
 else
 {
 document.getElementById("status").innerHTML =
-"❌ Error submitting request";
+"❌ Database permission error (fix below)";
 }
 
 }
