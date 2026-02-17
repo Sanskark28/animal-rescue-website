@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Report Animal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="phone">
+<div class="screen">
+
+<h2>Report Animal</h2>
+
+<input type="file" accept="image/*">
+
+<input id="location" placeholder="Location">
+<iframe
+width="100%"
+height="200"
+src="https://maps.google.com/maps?q=bangalore&t=&z=13&ie=UTF8&iwloc=&output=embed">
+</iframe>
+
+<button onclick="getLocation()">Get GPS Location</button>
+
+<button onclick="submitReport()">Submit</button>
+
+<p id="status"></p>
+
+<a href="index.html">
+<button>Back</button>
+</a>
+
+</div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
