@@ -12,16 +12,15 @@
 
 <h2>Report Animal</h2>
 
-<input type="file" accept="image/*">
+<input type="file" accept="image/*" onchange="previewImage(event)">
+
+<img id="preview" width="100%" style="margin-top:10px; border-radius:10px;">
 
 <input id="location" placeholder="Location">
-<iframe
-width="100%"
-height="200"
-src="https://maps.google.com/maps?q=bangalore&t=&z=13&ie=UTF8&iwloc=&output=embed">
-</iframe>
 
 <button onclick="getLocation()">Get GPS Location</button>
+
+<div id="map" style="margin-top:10px;"></div>
 
 <button onclick="submitReport()">Submit</button>
 
