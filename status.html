@@ -1,27 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Status</title>
-<link rel="stylesheet" href="style.css">
-</head>
+function previewImage(event)
+{
+let image = document.getElementById("preview");
+image.src = URL.createObjectURL(event.target.files[0]);
+}
 
-<body>
+function getLocation()
+{
+if(navigator.geolocation)
+{
+navigator.geolocation.getCurrentPosition(showPosition);
+}
+}
 
-<div class="phone">
-<div class="screen">
+function showPosition(position)
+{
+let lat = position.coords.latitude;
+let lon = position.coords.longitude;
 
-<h2>Rescue Status</h2>
+document.getElementById("location").value =
+lat + ", " + lon;
 
-<p id="rescueStatus">
-No active rescue
-</p>
+document.getElementById("map").innerHTML =
+'<iframe width="100%" height="200" src="https://maps.google.com/maps?q='
++ lat + ',' + lon +
+'&z=15&output=embed"></iframe>';
+}
 
-<a href="index.html">
-<button>Back</button>
-</a>
+function submitReport()
+{
+localStorage.setItem("rescueStatus",
+"Request submitted. Rescuer coming.");
 
-</div>
-</div>
-
-</body>
-</html>
+document.getElementById("status").innerHTML =
+"Request submitted successfully";
+}
